@@ -1,0 +1,51 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+@plugin "daisyui" {
+  themes: light --default, dark;
+}
+
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+  --color-base-100: #ffffff;
+  --color-base-200: oklch(0.97 0.001 106.424);
+  --color-base-300: oklch(0.923 0.003 48.717); /* Slightly darker for elements */
+  --color-base-content: oklch(26.9% 0 0);
+
+  --color-primary: oklch(71.4% 0.203 305.504);
+
+  --depth: 0;
+}
+
+@plugin "daisyui/theme" {
+  name: "dark";
+  default: true;
+  --color-base-100: #191919; /* Dark background oklch(0.15 0.01 106.424) */
+  --color-base-200: #202020; /* Slightly lighter dark background */
+  --color-base-300: #2c2c2c; /* Even lighter for elements */
+  --color-base-content: #e3e1e1; /* Light text for readability */
+
+  --color-primary: #301350;
+  --color-primary-content: oklch(90% 0.01 240) oklch(90% 0.01 240); /* Light text for primary elements */
+
+  --color-secondary: oklch(50% 0.15 210); /* Muted purple-blue */
+  --color-secondary-content: oklch(90% 0.01 210); /* Light text for secondary elements */
+
+  --color-accent: oklch(55% 0.2 140); /* Dark green for accents */
+  --color-accent-content: oklch(90% 0.01 140); /* Light text for accent elements */
+
+  --color-neutral: #2a2a2a; /* Dark neutral background */
+  --color-neutral-content: oklch(90% 0.05 240); /* Light text for neutral elements */
+
+  --color-info: oklch(80% 0.1 220); /* Soft blue for info */
+  --color-info-content: #8f8d89; /* Light text for info elements */
+  --color-success: oklch(75.07% 0.2155 144.88); /* Soft green for success */
+  --color-success-content: oklch(98% 0.01 130); /* Light text for success elements */
+  --color-warning: oklch(90% 0.1 50); /* Subtle yellow for warning */
+  --color-warning-content: oklch(20% 0.05 50); /* Darker text for warning */
+  --color-error: oklch(70% 0.2 30); /* Light red for error */
+  --color-error-content: oklch(98% 0.01 30); /* Light text for error elements */
+
+  --depth: 0;
+}
