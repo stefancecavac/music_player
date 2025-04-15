@@ -63,7 +63,7 @@ export const AudioSlider = ({ setVolume, volume }: ExportVolumeProps) => {
         step={0.001}
         value={volume}
         onChange={(e) => setVolume(parseFloat(e.target.value))}
-        className=" w-full  rounded-lg range range-primary range-xs  size-2   "
+        className=" w-full  rounded-lg range range-neutral range-xs  size-2   "
       />
     </div>
   );

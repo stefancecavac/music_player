@@ -4,7 +4,7 @@ export const RepeatButton = ({ setIsLooping, isLooping }: { isLooping: boolean; 
   return (
     <button
       onClick={() => setIsLooping((prev) => !prev)}
-      className={`btn btn-circle btn-sm ${isLooping && "bg-gradient-to-r from-purple-400 to-pink-300 text-white"} text-base-content/50 `}
+      className={`btn btn-circle btn-sm ${isLooping && "bg-gradient-to-r from-primary to-secondary "} text-base-content/50 `}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

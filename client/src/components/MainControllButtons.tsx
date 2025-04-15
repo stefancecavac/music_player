@@ -8,7 +8,7 @@ type MainControllButtonsProps = {
 export const MainControllButtons = ({ setCurrentSong, setAudioPlaying, audioPlaying, YT_URL }: MainControllButtonsProps) => {
   return (
     <div className="flex items-center gap-5">
-      <button className="btn btn-circle  text-primary " onClick={() => setCurrentSong((prev) => (prev === 0 ? prev : prev - 1))}>
+      <button className="btn btn-circle  text-neutral " onClick={() => setCurrentSong((prev) => (prev === 0 ? prev : prev - 1))}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -27,7 +27,7 @@ export const MainControllButtons = ({ setCurrentSong, setAudioPlaying, audioPlay
       </button>
 
       <button
-        className="btn btn-circle btn-xl bg-gradient-to-r from-purple-400 to-pink-300  text-white"
+        className="btn btn-circle btn-xl bg-gradient-to-r from-primary to-secondary  text-white"
         onClick={() => setAudioPlaying((prev) => !prev)}
       >
         {audioPlaying ? (
@@ -60,7 +60,7 @@ export const MainControllButtons = ({ setCurrentSong, setAudioPlaying, audioPlay
         )}
       </button>
 
-      <button className="btn btn-circle text-primary " onClick={() => setCurrentSong((prev) => (prev === YT_URL.length - 1 ? prev : prev + 1))}>
+      <button className="btn btn-circle  text-neutral " onClick={() => setCurrentSong((prev) => (prev === YT_URL.length - 1 ? prev : prev + 1))}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"

@@ -64,7 +64,7 @@ export const PlayerAndProgressbar = ({ audioPlaying, isLooping, volume, songs, Y
           onMouseDown={handleSeekMouseDown}
           onChange={handleSeekChange}
           onMouseUp={handleSeekMouseUp}
-          className=" w-full  rounded-lg range range-primary range-xs  "
+          className=" w-full  rounded-lg range range-neutral range-xs  "
         />
         <div className="flex items-center justify-between text-base-content/30 mx-2 font-medium text-sm">
           <p>{formatTime(played * duration)}</p>

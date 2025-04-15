@@ -19,7 +19,7 @@ export const MusicPlayer = ({ songs }: { songs: SongData[] }) => {
   const [audioPlaying, setAudioPlaying] = useAtom(isPlayingAtom);
 
   return (
-    <div className="rounded-lg w-full max-w-md p-6 bg-white shadow-2xl flex flex-col items-center gap-5 ">
+    <div className="rounded-lg w-full max-w-md p-6 bg-base-100 shadow-2xl flex flex-col items-center gap-5 ">
       <PlayerAndProgressbar YT_URL={YT_URL} audioPlaying={audioPlaying} isLooping={isLooping} volume={volume} songs={songs} />
       <div className="flex items-center justify-center w-full my-5">
         <MainControllButtons YT_URL={YT_URL} audioPlaying={audioPlaying} setAudioPlaying={setAudioPlaying} setCurrentSong={setCurrentSong} />
@@ -27,7 +27,7 @@ export const MusicPlayer = ({ songs }: { songs: SongData[] }) => {
       <div className="flex items-center justify-between w-full">
         <RepeatButton isLooping={isLooping} setIsLooping={setIsLooping} />
         <AudioSlider volume={volume} setVolume={setVolume} />
-        <ShuffleButton />
+        <ShuffleButton songCount={YT_URL.length} />
       </div>
     </div>
   );

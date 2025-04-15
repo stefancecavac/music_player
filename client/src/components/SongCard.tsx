@@ -17,7 +17,7 @@ export const SongCard = ({ song, index }: { song: SongData; index: number }) => 
       <div className="rounded size-10 flex items-center justify-center bg-base-300">
         <p className="text-base-100 text-3xl font-semibold">{index + 1}</p>
       </div>
-      <p className="text-base-content ">{song.title}</p>
+      <p className="text-base-content truncate w-50 ">{song.title}</p>
 
       {audioPlaying && currentSong === index && (
         <svg

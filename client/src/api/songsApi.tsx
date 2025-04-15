@@ -22,6 +22,7 @@ export const useGetAllSongs = () => {
 export const useGetSongTitle = () => {
   const getSongTitleApi = async (url: string) => {
     const response = await axios.get(`https://noembed.com/embed?url=${url}`);
+    console.log(response.data);
 
     return response.data as { title: string };
   };

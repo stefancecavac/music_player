@@ -1,6 +1,19 @@
-export const ShuffleButton = () => {
+import { useAtomValue, useSetAtom } from "jotai";
+import { currentSongAtom } from "../atoms/SongAtom";
+
+export const ShuffleButton = ({ songCount }: { songCount: number }) => {
+  const setCurrentSong = useSetAtom(currentSongAtom);
+  const currentSong = useAtomValue(currentSongAtom);
+
+  console.log(currentSong);
+
+  const handleShuffle = () => {
+    const randomNumber = Math.floor(Math.random() * songCount);
+    setCurrentSong(randomNumber);
+  };
+
   return (
-    <button className="btn btn-sm btn-circle text-base-content/50">
+    <button onClick={handleShuffle} className="btn btn-sm btn-circle text-base-content/50">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
