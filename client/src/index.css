@@ -3,6 +3,7 @@
 
 @plugin "daisyui" {
   themes: light --default, dark;
+  exclude: rootscrollgutter;
 }
 
 @plugin "daisyui/theme" {
@@ -25,7 +26,6 @@
 
 @plugin "daisyui/theme" {
   name: "dark";
-  default: true;
   --color-base-100: oklch(0.24 0 0);
   --color-base-200: #202020;
   --color-base-300: #2c2c2c;
@@ -40,4 +40,8 @@
   --color-secondary: oklch(50% 0.15 210);
 
   --depth: 0;
+}
+
+body {
+  scrollbar-gutter: stable;
 }

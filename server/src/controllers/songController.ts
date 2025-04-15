@@ -14,9 +14,9 @@ export const getAllSongsController = async (req: Request, res: Response) => {
 
 export const createSongController = async (req: Request, res: Response) => {
   try {
-    const { lenght, songHref, title } = req.body;
+    const { lenght, songHref, title, playlistId } = req.body;
 
-    const createdSong = await createSongService({ lenght, songHref, title });
+    const createdSong = await createSongService({ lenght, songHref, title, playlistId });
 
     res.status(200).json(createdSong);
   } catch (error) {

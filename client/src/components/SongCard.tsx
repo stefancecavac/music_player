@@ -1,16 +1,20 @@
-import { useAtom } from "jotai";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { SongData } from "../types";
-import { currentSongAtom, isPlayingAtom } from "../atoms/SongAtom";
+import { currentSongAtom, isPlayingAtom, songsAtom } from "../atoms/SongAtom";
+import { playlistAtom } from "../atoms/PlaylistAtom";
 
 export const SongCard = ({ song, index }: { song: SongData; index: number }) => {
   const [currentSong, setCurrentSong] = useAtom(currentSongAtom);
   const [audioPlaying, setAudioPlaying] = useAtom(isPlayingAtom);
+  const playlistData = useAtomValue(playlistAtom);
+  const setSongs = useSetAtom(songsAtom);
 
   return (
     <div
       onClick={() => {
         setCurrentSong(index);
         setAudioPlaying(currentSong === index ? (prev) => !prev : true);
+        setSongs(playlistData?.songs || []);
       }}
       className="hover:bg-base-300/50 hover:cursor-pointer group/items  flex items-center gap-5 relative"
     >

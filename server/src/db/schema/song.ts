@@ -16,6 +16,7 @@ export const songSchema = z.object({
     .max(255, { message: "Maximum 255 characters allowed" }),
   songHref: z.string({ message: "SongHref field is required" }),
   lenght: z.number({ message: "lenght field is required" }),
+  playlistId: z.string({ message: "Id field is required" }).uuid({ message: "Not a valid uuid" }),
 });
 
 export const createSongShema = z.object({
@@ -25,6 +26,7 @@ export const createSongShema = z.object({
     .max(255, { message: "Maximum 255 characters allowed" }),
   songHref: z.string({ message: "SongHref field is required" }),
   lenght: z.string({ message: "lenght field is required" }),
+  playlistId: z.string({ message: "Id field is required" }).uuid({ message: "Not a valid uuid" }),
 });
 
 export type CreateSongData = z.infer<typeof createSongShema>;

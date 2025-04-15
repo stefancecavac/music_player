@@ -1,11 +1,13 @@
+import { SongData } from "../types";
+
 type MainControllButtonsProps = {
   setCurrentSong: (value: (prev: number) => number) => void;
   setAudioPlaying: (value: boolean | ((prev: boolean) => boolean)) => void;
   audioPlaying: boolean;
-  YT_URL: string[];
+  songs: SongData[];
 };
 
-export const MainControllButtons = ({ setCurrentSong, setAudioPlaying, audioPlaying, YT_URL }: MainControllButtonsProps) => {
+export const MainControllButtons = ({ setCurrentSong, setAudioPlaying, audioPlaying, songs }: MainControllButtonsProps) => {
   return (
     <div className="flex items-center gap-5">
       <button className="btn btn-circle  text-neutral " onClick={() => setCurrentSong((prev) => (prev === 0 ? prev : prev - 1))}>
@@ -60,7 +62,7 @@ export const MainControllButtons = ({ setCurrentSong, setAudioPlaying, audioPlay
         )}
       </button>
 
-      <button className="btn btn-circle  text-neutral " onClick={() => setCurrentSong((prev) => (prev === YT_URL.length - 1 ? prev : prev + 1))}>
+      <button className="btn btn-circle  text-neutral " onClick={() => setCurrentSong((prev) => (prev === songs.length - 1 ? prev : prev + 1))}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"

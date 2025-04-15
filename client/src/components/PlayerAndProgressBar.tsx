@@ -6,14 +6,13 @@ import { useAtomValue } from "jotai";
 import { currentSongAtom } from "../atoms/SongAtom";
 
 type PlayerAndProgressBarProps = {
-  YT_URL: string[];
   songs: SongData[];
   isLooping: boolean;
   audioPlaying: boolean;
   volume: number;
 };
 
-export const PlayerAndProgressbar = ({ audioPlaying, isLooping, volume, songs, YT_URL }: PlayerAndProgressBarProps) => {
+export const PlayerAndProgressbar = ({ audioPlaying, isLooping, volume, songs }: PlayerAndProgressBarProps) => {
   const [played, setPlayed] = useState(0);
   const [seeking, setSeeking] = useState(false);
   const [duration, setDuration] = useState(0);
@@ -45,7 +44,7 @@ export const PlayerAndProgressbar = ({ audioPlaying, isLooping, volume, songs, Y
       <ReactPlayer
         loop={isLooping}
         ref={playerRef}
-        url={YT_URL[currentSong]}
+        url={songs[currentSong]?.songHref}
         playing={audioPlaying}
         volume={volume}
         onProgress={handleProgress}

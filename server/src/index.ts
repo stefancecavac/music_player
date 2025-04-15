@@ -4,6 +4,7 @@ import express from "express";
 import cors from "cors";
 
 import songsRouter from "./routes/songRoutes";
+import playlistsRouter from "./routes/playlistRoutes";
 import { errroHandler } from "./middleware/errorHadler";
 
 const app = express();
@@ -16,6 +17,7 @@ app.use(
 app.use(express.json());
 
 app.use("/api/songs", songsRouter);
+app.use("/api/playlists", playlistsRouter);
 
 app.use(errroHandler);
 
