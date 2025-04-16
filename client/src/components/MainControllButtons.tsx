@@ -10,7 +10,10 @@ type MainControllButtonsProps = {
 export const MainControllButtons = ({ setCurrentSong, setAudioPlaying, audioPlaying, songs }: MainControllButtonsProps) => {
   return (
     <div className="flex items-center gap-5">
-      <button className="btn btn-circle  text-neutral " onClick={() => setCurrentSong((prev) => (prev === 0 ? prev : prev - 1))}>
+      <button
+        className="text-base-content/50 hover:text-base-content hover:cursor-pointer"
+        onClick={() => setCurrentSong((prev) => (prev === 0 ? prev : prev - 1))}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -62,7 +65,10 @@ export const MainControllButtons = ({ setCurrentSong, setAudioPlaying, audioPlay
         )}
       </button>
 
-      <button className="btn btn-circle  text-neutral " onClick={() => setCurrentSong((prev) => (prev === songs.length - 1 ? prev : prev + 1))}>
+      <button
+        className="text-base-content/50 hover:text-base-content hover:cursor-pointer"
+        onClick={() => setCurrentSong((prev) => (prev === songs.length - 1 ? prev : prev + 1))}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"

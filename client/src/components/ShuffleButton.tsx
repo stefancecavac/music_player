@@ -13,7 +13,7 @@ export const ShuffleButton = ({ songCount }: { songCount: number }) => {
   };
 
   return (
-    <button onClick={handleShuffle} className="btn btn-sm btn-circle text-base-content/50">
+    <button onClick={handleShuffle} className="text-base-content/50 hover:text-base-content hover:cursor-pointer">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"

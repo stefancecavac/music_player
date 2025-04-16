@@ -1,12 +1,11 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { CreateSongData, SongData } from "../types";
+import { axiosInstance } from "../config/ApiClient";
 import axios from "axios";
-
-const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const useGetAllSongs = () => {
   const getAllSongsApi = async () => {
-    const response = await axios.get(`${BASE_URL}/songs/`);
+    const response = await axiosInstance.get(`/songs/`);
 
     return response.data as SongData[];
   };
@@ -19,25 +18,25 @@ export const useGetAllSongs = () => {
   return { songs, songsLoading };
 };
 
-export const useGetSongTitle = () => {
-  const getSongTitleApi = async (url: string) => {
+export const useGetSongInformation = () => {
+  const getSongInformationApi = async (url: string) => {
     const response = await axios.get(`https://noembed.com/embed?url=${url}`);
     console.log(response.data);
 
-    return response.data as { title: string };
+    return response.data as { title: string; thumbnail_url: string };
   };
 
-  const { mutateAsync: getTitle } = useMutation({
-    mutationKey: ["title"],
-    mutationFn: getSongTitleApi,
+  const { mutateAsync: getSongInformation } = useMutation({
+    mutationKey: ["songInformation"],
+    mutationFn: getSongInformationApi,
   });
 
-  return { getTitle };
+  return { getSongInformation };
 };
 
 export const useCreateSong = () => {
-  const postSongApi = async ({ lenght, songHref, title }: CreateSongData) => {
-    const response = await axios.post(`${BASE_URL}/songs/`, { lenght, songHref, title });
+  const postSongApi = async ({ lenght, songHref, title, playlistId, thumbnailUrl }: CreateSongData) => {
+    const response = await axiosInstance.post(`/songs/`, { lenght, songHref, title, playlistId, thumbnailUrl });
 
     return response.data as SongData[];
   };

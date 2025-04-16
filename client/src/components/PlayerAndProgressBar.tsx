@@ -3,7 +3,7 @@ import ReactPlayer from "react-player/youtube";
 import { formatTime } from "../util/FormatTime";
 import { SongData } from "../types";
 import { useAtomValue } from "jotai";
-import { currentSongAtom } from "../atoms/SongAtom";
+import { currentSongAtom, currentSongPlayingAtom } from "../atoms/SongAtom";
 
 type PlayerAndProgressBarProps = {
   songs: SongData[];
@@ -19,6 +19,7 @@ export const PlayerAndProgressbar = ({ audioPlaying, isLooping, volume, songs }:
   const playerRef = useRef<ReactPlayer>(null);
 
   const currentSong = useAtomValue(currentSongAtom);
+  const currentSongPlaying = useAtomValue(currentSongPlayingAtom);
 
   const handleProgress = (state: { played: number }) => {
     if (!seeking) {
@@ -39,6 +40,11 @@ export const PlayerAndProgressbar = ({ audioPlaying, isLooping, volume, songs }:
     playerRef.current?.seekTo(parseFloat((e.target as HTMLInputElement).value));
   };
 
+  const calculateBackground = () => {
+    const percentage = played * 100;
+    return `linear-gradient(to right, var(--color-primary) 0%, var(--color-secondary, #662d91) ${percentage}%, var(--color-base-300, #662d91) ${percentage}%, var(--color-base-300, #662d91) 100%)`;
+  };
+
   return (
     <>
       <ReactPlayer
@@ -52,8 +58,11 @@ export const PlayerAndProgressbar = ({ audioPlaying, isLooping, volume, songs }:
         width={0}
         height={0}
       />
-      <div className="flex flex-col gap-2 w-full">
-        <h2 className="text-xl font-medium text-base-content mx-auto mb-10 h-5">{songs[currentSong]?.title}</h2>
+      <div className="flex flex-col gap-2 w-full items-center">
+        <div className="flex items-center gap-5 mb-5">
+          <img src={currentSongPlaying?.thumbnailUrl} className="size-20 rounded-lg shadow-lg "></img>
+          <h2 className="text-xl font-medium text-base-content mx-auto mb-10 h-5">{songs[currentSong]?.title}</h2>
+        </div>
         <input
           type="range"
           min={0}
@@ -63,9 +72,15 @@ export const PlayerAndProgressbar = ({ audioPlaying, isLooping, volume, songs }:
           onMouseDown={handleSeekMouseDown}
           onChange={handleSeekChange}
           onMouseUp={handleSeekMouseUp}
-          className=" w-full  rounded-lg range range-neutral range-xs  "
+          className="w-full h-2 rounded-lg appearance-none cursor-pointer "
+          style={{
+            background: calculateBackground(),
+            WebkitAppearance: "none",
+            appearance: "none",
+            outline: "none",
+          }}
         />
-        <div className="flex items-center justify-between text-base-content/30 mx-2 font-medium text-sm">
+        <div className="flex items-center justify-between text-base-content/30 mx-2 font-medium text-sm w-full">
           <p>{formatTime(played * duration)}</p>
           <p>{formatTime(duration)}</p>
         </div>

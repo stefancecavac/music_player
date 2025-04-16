@@ -1,13 +1,12 @@
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-
-const BASE_URL = import.meta.env.VITE_BASE_URL;
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { CreatePlaylistData, PlaylistData } from "../types";
+import { axiosInstance } from "../config/ApiClient";
 
 export const useGetAllPlaylists = () => {
   const getAllPlaylistsApi = async () => {
-    const response = await axios.get(`${BASE_URL}/playlists/`);
+    const response = await axiosInstance.get(`/playlists/`);
 
-    return response.data;
+    return response.data as PlaylistData[];
   };
 
   const { data: playlists, isPending: playlistsLoading } = useQuery({
@@ -20,7 +19,7 @@ export const useGetAllPlaylists = () => {
 
 export const useGetSinglePlaylist = (id: string) => {
   const getSinglePlaylistsApi = async () => {
-    const response = await axios.get(`${BASE_URL}/playlists/${id}`);
+    const response = await axiosInstance.get(`/playlists/${id}`);
 
     return response.data;
   };
@@ -31,4 +30,19 @@ export const useGetSinglePlaylist = (id: string) => {
   });
 
   return { playlist, playlistLoading };
+};
+
+export const useCreatePlaylist = () => {
+  const createPlaylistApi = async ({ name, userId }: CreatePlaylistData) => {
+    const response = await axiosInstance.post(`/playlists/`, { name, userId });
+
+    return response.data;
+  };
+
+  const { mutate: createPlaylist } = useMutation({
+    mutationKey: ["playlist"],
+    mutationFn: createPlaylistApi,
+  });
+
+  return { createPlaylist };
 };

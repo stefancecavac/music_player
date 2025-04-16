@@ -6,6 +6,7 @@ export const songTable = pgTable("songs", {
   title: varchar("title", { length: 255 }).notNull(),
   songHref: varchar("link").notNull(),
   lenght: numeric("lenght").notNull(),
+  thumbnailUrl: varchar("thumbnail_url").notNull(),
 });
 
 export const songSchema = z.object({
@@ -16,6 +17,8 @@ export const songSchema = z.object({
     .max(255, { message: "Maximum 255 characters allowed" }),
   songHref: z.string({ message: "SongHref field is required" }),
   lenght: z.number({ message: "lenght field is required" }),
+  thumbnailUrl: z.string(),
+
   playlistId: z.string({ message: "Id field is required" }).uuid({ message: "Not a valid uuid" }),
 });
 
@@ -26,6 +29,7 @@ export const createSongShema = z.object({
     .max(255, { message: "Maximum 255 characters allowed" }),
   songHref: z.string({ message: "SongHref field is required" }),
   lenght: z.string({ message: "lenght field is required" }),
+  thumbnailUrl: z.string({ message: "Id field is required" }),
   playlistId: z.string({ message: "Id field is required" }).uuid({ message: "Not a valid uuid" }),
 });
 

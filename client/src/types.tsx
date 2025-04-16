@@ -8,6 +8,7 @@ export const songSchema = z.object({
     .max(255, { message: "Maximum 255 characters allowed" }),
   songHref: z.string({ message: "SongHref field is required" }),
   lenght: z.number({ message: "lenght field is required" }),
+  thumbnailUrl: z.string({ message: "Thumbnail required" }),
 });
 
 export type SongData = z.infer<typeof songSchema>;
@@ -30,6 +31,25 @@ export const createSongSchema = z.object({
     .max(255, { message: "Maximum 255 characters allowed" }),
   songHref: z.string({ message: "SongHref field is required" }),
   lenght: z.number({ message: "lenght field is required" }),
+  thumbnailUrl: z.string({ message: "Thumbnail required" }),
+  playlistId: z.string().uuid(),
 });
 
 export type CreateSongData = z.infer<typeof createSongSchema>;
+
+export const createPlaylistSchema = z.object({
+  name: z
+    .string({ message: "Title field is required" })
+    .min(1, { message: "title is required" })
+    .max(255, { message: "Maximum 255 characters allowed" }),
+  userId: z.string(),
+});
+
+export type CreatePlaylistData = z.infer<typeof createPlaylistSchema>;
+
+export const userSchema = z.object({
+  id: z.string().uuid(),
+  email: z.string().email(),
+});
+
+export type UserData = z.infer<typeof userSchema>;

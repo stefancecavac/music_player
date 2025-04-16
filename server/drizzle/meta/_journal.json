@@ -15,6 +15,27 @@
       "when": 1744740690830,
       "tag": "0001_stale_iron_man",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1744826149759,
+      "tag": "0002_real_sugar_man",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1744832626891,
+      "tag": "0003_overrated_shocker",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1744834846795,
+      "tag": "0004_numerous_human_fly",
+      "breakpoints": true
     }
   ]
 }

@@ -10,8 +10,6 @@ import { PlayerAndProgressbar } from "./PlayerAndProgressBar";
 export const MusicPlayer = () => {
   const songs = useAtomValue(songsAtom);
 
-  console.log("songs", songs);
-
   const [volume, setVolume] = useState(1);
 
   const [isLooping, setIsLooping] = useState(false);
@@ -20,9 +18,9 @@ export const MusicPlayer = () => {
   const [audioPlaying, setAudioPlaying] = useAtom(isPlayingAtom);
 
   return (
-    <div className="rounded-lg w-full max-w-md p-6 bg-base-100 shadow-2xl flex flex-col items-center gap-5 ">
+    <div className="rounded-lg  w-full max-w-md p-6 bg-gradient-to-tl from-base-100/80 to-base-200/70  backdrop-blur-xl shadow-2xl flex flex-col items-center gap-2 mt-30 ">
       <PlayerAndProgressbar audioPlaying={audioPlaying} isLooping={isLooping} volume={volume} songs={songs} />
-      <div className="flex items-center justify-center w-full my-5">
+      <div className="flex items-center justify-center w-full my-2 mb-5">
         <MainControllButtons songs={songs} audioPlaying={audioPlaying} setAudioPlaying={setAudioPlaying} setCurrentSong={setCurrentSong} />
       </div>
       <div className="flex items-center justify-between w-full">

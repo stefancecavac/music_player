@@ -4,8 +4,13 @@ type ExportVolumeProps = {
 };
 
 export const AudioSlider = ({ setVolume, volume }: ExportVolumeProps) => {
+  const calculateBackground = () => {
+    const percentage = volume * 100;
+    return `linear-gradient(to right, var(--color-primary) 0%, var(--color-secondary, #662d91) ${percentage}%, var(--color-base-300, #662d91) ${percentage}%, var(--color-base-300, #662d91) 100%)`;
+  };
+
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2 rounded-full p-1 bg-base-300/20">
       {volume > 0.5 && (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -15,7 +20,7 @@ export const AudioSlider = ({ setVolume, volume }: ExportVolumeProps) => {
           strokeWidth="1"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="size-7 text-base-content/50"
+          className="size-7 text-base-content"
         >
           <path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z" />
           <path d="M16 9a5 5 0 0 1 0 6" />
@@ -32,7 +37,7 @@ export const AudioSlider = ({ setVolume, volume }: ExportVolumeProps) => {
           strokeWidth="1"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="size-7 text-base-content/50"
+          className="size-7 text-base-content"
         >
           <path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z" />
           <path d="M16 9a5 5 0 0 1 0 6" />
@@ -48,7 +53,7 @@ export const AudioSlider = ({ setVolume, volume }: ExportVolumeProps) => {
           strokeWidth="1"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="size-7 text-base-content/50"
+          className="size-7 text-base-content"
         >
           <path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z" />
           <line x1="22" x2="16" y1="9" y2="15" />
@@ -63,7 +68,13 @@ export const AudioSlider = ({ setVolume, volume }: ExportVolumeProps) => {
         step={0.001}
         value={volume}
         onChange={(e) => setVolume(parseFloat(e.target.value))}
-        className=" w-full  rounded-lg range range-neutral range-xs  size-2   "
+        className="w-full h-2 rounded-lg appearance-none cursor-pointer "
+        style={{
+          background: calculateBackground(),
+          WebkitAppearance: "none",
+          appearance: "none",
+          outline: "none",
+        }}
       />
     </div>
   );

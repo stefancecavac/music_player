@@ -12,9 +12,9 @@ export const getAllSongsService = async () => {
     throw new AppError("Database error", 500);
   }
 };
-export const createSongService = async ({ title, lenght, songHref, playlistId }: CreateSongData) => {
+export const createSongService = async ({ title, lenght, songHref, playlistId, thumbnailUrl }: CreateSongData) => {
   try {
-    const createdSong = await db.insert(songTable).values({ title, lenght, songHref }).returning();
+    const createdSong = await db.insert(songTable).values({ title, lenght, songHref, thumbnailUrl }).returning();
     await db.insert(playlistSongsTable).values({ playlistId: playlistId, songId: createdSong[0].id });
 
     return createdSong[0];

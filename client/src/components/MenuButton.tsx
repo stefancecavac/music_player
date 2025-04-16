@@ -2,25 +2,13 @@ import { useGetAllPlaylists } from "../api/playlistApi";
 import { NewSongButton } from "./NewSongButton";
 import { useAtom } from "jotai";
 import { playlistAtom } from "../atoms/PlaylistAtom";
-import axios from "axios";
 import { SongCard } from "./SongCard";
-import { PlaylistData } from "../types";
-
-const BASE_URL = import.meta.env.VITE_BASE_URL;
+import { PlaylistCard } from "./PlaylistCard";
+import { NewPlaylistButton } from "./newPlaylistButton";
 
 export const MenuButton = () => {
   const { playlists } = useGetAllPlaylists();
   const [playlist, setPLaylist] = useAtom(playlistAtom);
-
-  const hanldePlaylistClick = async (id: string) => {
-    try {
-      const response = await axios.get<PlaylistData>(`${BASE_URL}/playlists/${id}`);
-      const data = response.data as PlaylistData;
-      setPLaylist(data);
-    } catch (err) {
-      console.error("Error loading playlist", err);
-    }
-  };
 
   return (
     <div className="drawer">
@@ -34,9 +22,9 @@ export const MenuButton = () => {
       </div>
       <div className="drawer-side z-50">
         <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
-        <div className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
-          <div className="flex items-center justify-between border-b-2 pb-3 border-base-content/10">
-            <div className="flex gap-5 items-center">
+        <div className=" bg-base-200 text-base-content min-h-full w-80 pl-1 ">
+          <div className="flex items-center justify-between border-b-2 p-3 pb-3 border-base-content/10">
+            <div className="flex gap-5 items-center h-10 ">
               {playlist ? (
                 <button onClick={() => setPLaylist(undefined)} className="btn btn-square btn-sm">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
@@ -62,19 +50,21 @@ export const MenuButton = () => {
 
               <p className="text-lg font-bold text-base-content">{playlist?.name ? playlist?.name : "Your playlists"}</p>
             </div>
-
-            <NewSongButton />
+            {!playlist?.id && <NewPlaylistButton />}
+            {playlist?.id && <NewSongButton id={playlist.id} />}
           </div>
 
-          <div className="flex flex-col gap-2 mt-5">
-            {playlist
-              ? playlist?.songs?.map((song, index) => <SongCard index={index} song={song} key={song.id} />)
-              : playlists?.map((playlist: { id: string; name: string }) => (
-                  <div onClick={() => hanldePlaylistClick(playlist.id)} id={playlist.id}>
-                    {playlist.name}
-                  </div>
-                ))}
-          </div>
+          {playlists?.length === 0 ? (
+            <div className="mt-5 mx-5">
+              <p className="text-base-content/50 text-sm">You have no playlists press create playlist button to add new playlist</p>
+            </div>
+          ) : (
+            <ul className="list bg-base-100  shadow-md  ">
+              {playlist
+                ? playlist?.songs?.map((song, index) => <SongCard index={index} song={song} key={song.id} />)
+                : playlists?.map((playlist) => <PlaylistCard playlist={playlist} key={playlist.id} />)}
+            </ul>
+          )}
         </div>
       </div>
     </div>

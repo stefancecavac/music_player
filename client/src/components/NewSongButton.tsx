@@ -1,15 +1,15 @@
 import { useState } from "react";
-import { useCreateSong, useGetSongTitle } from "../api/songsApi";
+import { useCreateSong, useGetSongInformation } from "../api/songsApi";
 
-export const NewSongButton = () => {
-  const { getTitle } = useGetSongTitle();
+export const NewSongButton = ({ id }: { id: string }) => {
+  const { getSongInformation } = useGetSongInformation();
   const { createSong } = useCreateSong();
 
   const [songUrl, setSongUrl] = useState("");
 
   const handleCreateSong = async () => {
-    const title = await getTitle(songUrl);
-    createSong({ title: title.title, songHref: songUrl, lenght: 1 });
+    const songInfo = await getSongInformation(songUrl);
+    createSong({ title: songInfo.title, songHref: songUrl, lenght: 1, playlistId: id, thumbnailUrl: songInfo.thumbnail_url });
   };
 
   return (
