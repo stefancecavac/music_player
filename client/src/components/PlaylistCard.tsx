@@ -24,17 +24,19 @@ export const PlaylistCard = ({ playlist }: { playlist: PlaylistData }) => {
       <div className=" h-full w-12 flex items-center justify-center bg-gradient-to-r from-primary to-secondary">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          fill="none"
           viewBox="0 0 24 24"
-          strokeWidth={2}
+          fill="none"
           stroke="currentColor"
+          strokeWidth="1"
+          strokeLinecap="round"
+          strokeLinejoin="round"
           className="size-6 text-base-content"
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="m9 9 10.5-3m0 6.553v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 1 1-.99-3.467l2.31-.66a2.25 2.25 0 0 0 1.632-2.163Zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 0 1-.99-3.467l2.31-.66A2.25 2.25 0 0 0 9 15.553Z"
-          />
+          <path d="M21 15V6" />
+          <path d="M18.5 18a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
+          <path d="M12 12H3" />
+          <path d="M16 6H3" />
+          <path d="M12 18H3" />
         </svg>
       </div>
       <p className="text-base-content truncate w-50 ">{playlist.name}</p>

@@ -22,7 +22,7 @@ export const MenuButton = () => {
       </div>
       <div className="drawer-side z-50">
         <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
-        <div className=" bg-base-200 text-base-content min-h-full w-80 pl-1 ">
+        <div className=" bg-base-200 text-base-content min-h-full w-100 pl-1 ">
           <div className="flex items-center justify-between border-b-2 p-3 pb-3 border-base-content/10">
             <div className="flex gap-5 items-center h-10 ">
               {playlist ? (
@@ -50,7 +50,7 @@ export const MenuButton = () => {
 
               <p className="text-lg font-bold text-base-content">{playlist?.name ? playlist?.name : "Your playlists"}</p>
             </div>
-            {!playlist?.id && <NewPlaylistButton />}
+            {!playlist?.id && <NewPlaylistButton playlists={playlists} />}
             {playlist?.id && <NewSongButton id={playlist.id} />}
           </div>
 

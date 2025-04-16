@@ -59,10 +59,15 @@ export const PlayerAndProgressbar = ({ audioPlaying, isLooping, volume, songs }:
         height={0}
       />
       <div className="flex flex-col gap-2 w-full items-center">
-        <div className="flex items-center gap-5 mb-5">
-          <img src={currentSongPlaying?.thumbnailUrl} className="size-20 rounded-lg shadow-lg "></img>
-          <h2 className="text-xl font-medium text-base-content mx-auto mb-10 h-5">{songs[currentSong]?.title}</h2>
-        </div>
+        {currentSongPlaying ? (
+          <div className="flex items-center gap-5 mb-5">
+            <img src={currentSongPlaying?.thumbnailUrl} className="size-20 rounded-lg shadow-lg "></img>
+            <h2 className="text-xl font-medium text-base-content mx-auto ">{songs[currentSong]?.title}</h2>
+          </div>
+        ) : (
+          <p className="text-base-content mb-2">Select a song to start playing</p>
+        )}
+
         <input
           type="range"
           min={0}
