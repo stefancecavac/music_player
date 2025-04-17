@@ -16,7 +16,11 @@ export const NewPlaylistButton = ({ playlists }: { playlists?: PlaylistData[] })
 
   return (
     <div className="dropdown dropdown-end">
-      <div tabIndex={0} role="button" className="btn btn-square btn-sm bg-gradient-to-r from-primary/50 to-secondary/50 rounded-full p-1">
+      <div
+        tabIndex={0}
+        role="button"
+        className="btn btn-square border-none btn-sm bg-gradient-to-r from-primary/50 to-secondary/50 rounded-full p-1 shadow-[_0px_1px_25px] shadow-base-300 hover:shadow-secondary"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -66,7 +70,7 @@ export const NewPlaylistButton = ({ playlists }: { playlists?: PlaylistData[] })
               </div>
 
               <div className="flex items-center gap-3 ">
-                <button className="btn btn-xs btn-square bg-transparent ">
+                <button className="btn btn-xs btn-square bg-transparent border-none ">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
                     <path
                       strokeLinecap="round"
@@ -75,7 +79,7 @@ export const NewPlaylistButton = ({ playlists }: { playlists?: PlaylistData[] })
                     />
                   </svg>
                 </button>
-                <button className="btn btn-xs btn-square bg-transparent ">
+                <button className="btn btn-xs btn-square bg-transparent border-none ">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
                     <path
                       strokeLinecap="round"
@@ -93,7 +97,10 @@ export const NewPlaylistButton = ({ playlists }: { playlists?: PlaylistData[] })
         {creatingPlaylist ? (
           <div className="flex items-center gap-2 p-2">
             <input onChange={(e) => setPlaylistName(e.target.value)} placeholder="Enter playlist title " className="input   input-sm "></input>
-            <button onClick={handleCreatePlaylist} className="btn bg-gradient-to-r from-primary to-secondary text-white btn-sm btn-square ">
+            <button
+              onClick={handleCreatePlaylist}
+              className="btn bg-gradient-to-r from-primary to-secondary text-white btn-sm btn-square shadow-[_0px_1px_25px] shadow-base-300 hover:shadow-secondary"
+            >
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
                 <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
               </svg>

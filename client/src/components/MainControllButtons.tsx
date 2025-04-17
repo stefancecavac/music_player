@@ -32,7 +32,7 @@ export const MainControllButtons = ({ setCurrentSong, setAudioPlaying, audioPlay
       </button>
 
       <button
-        className="btn btn-circle btn-xl bg-gradient-to-r from-primary to-secondary  text-white"
+        className="btn btn-circle btn-xl bg-gradient-to-r from-primary to-secondary shadow-[_0px_1px_25px] border-none shadow-base-300 hover:shadow-secondary  text-white"
         onClick={() => setAudioPlaying((prev) => !prev)}
       >
         {audioPlaying ? (

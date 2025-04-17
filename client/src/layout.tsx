@@ -8,7 +8,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div className="w-full min-h-screen bg-gradient-to-r from-primary to-secondary  p-2">
-      <div className="bg-base-100/50 rounded-lg p-1  border border-base-200 flex items-center gap-2 w-fit">
+      <div className="bg-base-100/50 rounded-lg p-1   flex items-center gap-2 w-fit">
         {user && <MenuButton />}
         <ThemeChangerComponent />
         <p>{user?.email}</p>

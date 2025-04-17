@@ -1,25 +1,28 @@
 import { PlaylistData } from "../types";
 import { useSetAtom } from "jotai";
 import { playlistAtom } from "../atoms/PlaylistAtom";
-import { axiosInstance } from "../config/ApiClient";
+import { useGetSinglePlaylist } from "../api/playlistApi";
 
 export const PlaylistCard = ({ playlist }: { playlist: PlaylistData }) => {
   const setPLaylist = useSetAtom(playlistAtom);
 
-  const hanldePlaylistClick = async (id: string) => {
-    try {
-      const response = await axiosInstance.get<PlaylistData>(`/playlists/${id}`);
-      const data = response.data as PlaylistData;
-      setPLaylist(data);
-    } catch (err) {
-      console.error("Error loading playlist", err);
+  const { refetch, isFetching: loading } = useGetSinglePlaylist(playlist.id, false);
+
+  const hanldePlaylistClick = async () => {
+    const result = await refetch();
+    if (result.data) {
+      setPLaylist(result.data);
+    } else {
+      console.error("Playlist not found");
     }
   };
 
   return (
     <div
-      onClick={() => hanldePlaylistClick(playlist.id)}
-      className=" hover:cursor-pointer group/items   bg-gradient-to-tl from-base-100/10 to-base-200/90  backdrop-blur-xl flex items-center gap-5 h-15 relative list-row rounded-none p-0"
+      onClick={hanldePlaylistClick}
+      className={`${
+        loading && "animate-pulse"
+      } hover:cursor-pointer group/items   bg-gradient-to-tl from-base-100/10 to-base-200/90  backdrop-blur-xl flex items-center gap-5 h-15 relative list-row rounded-none p-0`}
     >
       <div className=" h-full w-12 flex items-center justify-center bg-gradient-to-r from-primary to-secondary">
         <svg

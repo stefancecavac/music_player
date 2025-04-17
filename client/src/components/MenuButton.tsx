@@ -22,11 +22,11 @@ export const MenuButton = () => {
       </div>
       <div className="drawer-side z-50">
         <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
-        <div className=" bg-base-200 text-base-content min-h-full w-100 pl-1 ">
+        <div className=" bg-gradient-to-r border-r  border-base-300  from-base-100/50 to-base-200/90 backdrop-blur-lg text-base-content min-h-full w-100 pl-1  ">
           <div className="flex items-center justify-between border-b-2 p-3 pb-3 border-base-content/10">
             <div className="flex gap-5 items-center h-10 ">
               {playlist ? (
-                <button onClick={() => setPLaylist(undefined)} className="btn btn-square btn-sm">
+                <button onClick={() => setPLaylist(undefined)} className="btn btn-square btn-sm bg-transparent border-none">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
                   </svg>

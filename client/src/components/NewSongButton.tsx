@@ -3,7 +3,7 @@ import { useCreateSong, useGetSongInformation } from "../api/songsApi";
 
 export const NewSongButton = ({ id }: { id: string }) => {
   const { getSongInformation } = useGetSongInformation();
-  const { createSong } = useCreateSong();
+  const { createSong, creatingSong } = useCreateSong(id);
 
   const [songUrl, setSongUrl] = useState("");
 
@@ -14,7 +14,7 @@ export const NewSongButton = ({ id }: { id: string }) => {
 
   return (
     <div className="dropdown dropdown-center">
-      <div tabIndex={0} role="button" className="btn btn-square btn-sm">
+      <div tabIndex={0} role="button" className="btn btn-circle btn-sm shadow-[_0px_1px_25px] shadow-base-300 hover:shadow-secondary">
         <div className="rounded-full p-1 bg-gradient-to-r from-primary/50 to-secondary/50">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -51,8 +51,11 @@ export const NewSongButton = ({ id }: { id: string }) => {
         <p className="text-base-content/50 text-sm  p-2">Add a Song to playlist</p>
         <div className="flex items-center gap-5 p-2">
           <input onChange={(e) => setSongUrl(e.target.value)} placeholder="Song url" className="input w-70  input-sm "></input>
-          <button onClick={handleCreateSong} className="btn bg-gradient-to-r from-primary to-secondary text-white btn-sm ">
-            Add
+          <button
+            onClick={handleCreateSong}
+            className="btn bg-gradient-to-r from-primary to-secondary text-white btn-sm border-none shadow-[_0px_1px_25px] shadow-base-300 hover:shadow-secondary "
+          >
+            {creatingSong ? <span className="loading loading-spinner size-3 " /> : "Add"}
           </button>
         </div>
       </div>
