@@ -1,5 +1,5 @@
 import { useAtomValue, useSetAtom } from "jotai";
-import { currentSongAtom } from "../atoms/SongAtom";
+import { currentSongAtom } from "../../atoms/SongAtom";
 
 export const ShuffleButton = ({ songCount }: { songCount: number }) => {
   const setCurrentSong = useSetAtom(currentSongAtom);

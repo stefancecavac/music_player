@@ -1,5 +1,5 @@
 import React from "react";
-import { MenuButton } from "./components/MenuButton";
+import { MenuButton } from "./components/menuComponents/MenuButton";
 import { ThemeChangerComponent } from "./components/ThemeChangerComponent";
 import { UseAuthContext } from "./context/AuthContext";
 

@@ -1,25 +1,50 @@
-import { useState } from "react";
-import { useCreatePlaylist } from "../api/playlistApi";
-import { UseAuthContext } from "../context/AuthContext";
-import { PlaylistData } from "../types";
+import { useEffect, useRef, useState } from "react";
+import { useCreatePlaylist, useDeletePlaylist, useUpdatePlaylist } from "../../../api/playlistApi";
+import { UseAuthContext } from "../../../context/AuthContext";
+import { PlaylistData } from "../../../types";
 
 export const NewPlaylistButton = ({ playlists }: { playlists?: PlaylistData[] }) => {
   const { createPlaylist } = useCreatePlaylist();
+  const { deletePlaylist } = useDeletePlaylist();
+  const { updatePlaylist } = useUpdatePlaylist();
+
+  const editRefs = useRef<{ [key: string]: HTMLSpanElement | null }>({});
+
   const [playlistName, setPlaylistName] = useState("");
   const { user } = UseAuthContext();
 
+  const [editableId, setEditableId] = useState("");
+
   const [creatingPlaylist, setCreatingPlaylist] = useState(false);
+
+  useEffect(() => {
+    if (editableId && editRefs.current[editableId]) {
+      const el = editRefs.current[editableId];
+      el.focus();
+      document.execCommand("selectAll", false);
+    }
+  }, [editableId]);
+
+  const handleEditTitle = (id: string) => {
+    setEditableId(id);
+  };
+
+  const handleUpdatePlaylist = ({ playlistId, e }: { playlistId: string; e: React.FocusEvent<HTMLSpanElement, Element> }) => {
+    updatePlaylist({ id: playlistId, name: e.target.textContent || "" });
+    setEditableId("");
+  };
 
   const handleCreatePlaylist = () => {
     createPlaylist({ name: playlistName, userId: user!.id });
   };
+  if (!user) return null;
 
   return (
     <div className="dropdown dropdown-end">
       <div
         tabIndex={0}
         role="button"
-        className="btn btn-square border-none btn-sm bg-gradient-to-r from-primary/50 to-secondary/50 rounded-full p-1 shadow-[_0px_1px_25px] shadow-base-300 hover:shadow-secondary"
+        className="btn btn-square border-0 hover:border-2  hover:border-secondary btn-sm bg-gradient-to-r from-primary/50 to-secondary/50 rounded-full p-1 shadow-[_0px_1px_25px] shadow-base-300 hover:shadow-secondary"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -66,11 +91,22 @@ export const NewPlaylistButton = ({ playlists }: { playlists?: PlaylistData[] })
                   <path d="M16 6H3" />
                   <path d="M12 18H3" />
                 </svg>
-                <p className="text-sm">{playlist.name}</p>
+
+                <span
+                  onBlur={(e) => handleUpdatePlaylist({ playlistId: playlist.id, e })}
+                  ref={(el) => {
+                    editRefs.current[playlist.id] = el;
+                  }}
+                  contentEditable={editableId === playlist.id}
+                  suppressContentEditableWarning
+                  className={` ${editableId === playlist.id && "focus:bg-base-300 hover:cursor-text outline-primary "} text-sm w-35 truncate`}
+                >
+                  {playlist.name}
+                </span>
               </div>
 
               <div className="flex items-center gap-3 ">
-                <button className="btn btn-xs btn-square bg-transparent border-none ">
+                <button onClick={() => handleEditTitle(playlist.id)} className="btn btn-xs btn-square hover:bg-secondary bg-transparent border-none ">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
                     <path
                       strokeLinecap="round"
@@ -79,7 +115,10 @@ export const NewPlaylistButton = ({ playlists }: { playlists?: PlaylistData[] })
                     />
                   </svg>
                 </button>
-                <button className="btn btn-xs btn-square bg-transparent border-none ">
+                <button
+                  onClick={() => deletePlaylist({ id: playlist.id, userId: user?.id })}
+                  className="btn btn-xs btn-square bg-transparent border-none  hover:bg-secondary"
+                >
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
                     <path
                       strokeLinecap="round"
@@ -96,10 +135,14 @@ export const NewPlaylistButton = ({ playlists }: { playlists?: PlaylistData[] })
 
         {creatingPlaylist ? (
           <div className="flex items-center gap-2 p-2">
-            <input onChange={(e) => setPlaylistName(e.target.value)} placeholder="Enter playlist title " className="input   input-sm "></input>
+            <input
+              onChange={(e) => setPlaylistName(e.target.value)}
+              placeholder="Enter playlist title "
+              className="input focus-within:outline-none   input-sm "
+            ></input>
             <button
               onClick={handleCreatePlaylist}
-              className="btn bg-gradient-to-r from-primary to-secondary text-white btn-sm btn-square shadow-[_0px_1px_25px] shadow-base-300 hover:shadow-secondary"
+              className="btn bg-gradient-to-r  border-0 hover:border-2  hover:border-secondary from-primary to-secondary text-white btn-sm btn-square shadow-[_0px_1px_25px] shadow-base-300 hover:shadow-secondary"
             >
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
                 <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />

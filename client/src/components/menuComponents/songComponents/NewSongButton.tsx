@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useCreateSong, useGetSongInformation } from "../api/songsApi";
+import { useCreateSong, useGetSongInformation } from "../../../api/songsApi";
 
 export const NewSongButton = ({ id }: { id: string }) => {
   const { getSongInformation } = useGetSongInformation();
@@ -14,7 +14,11 @@ export const NewSongButton = ({ id }: { id: string }) => {
 
   return (
     <div className="dropdown dropdown-center">
-      <div tabIndex={0} role="button" className="btn btn-circle btn-sm shadow-[_0px_1px_25px] shadow-base-300 hover:shadow-secondary">
+      <div
+        tabIndex={0}
+        role="button"
+        className="btn btn-circle   border-0 hover:border-2  hover:border-secondary btn-sm shadow-[_0px_1px_25px] shadow-base-300 hover:shadow-secondary"
+      >
         <div className="rounded-full p-1 bg-gradient-to-r from-primary/50 to-secondary/50">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -22,7 +26,7 @@ export const NewSongButton = ({ id }: { id: string }) => {
             viewBox="0 0 24 24"
             strokeWidth="1.5"
             stroke="currentColor"
-            className="size-6 text-base-content"
+            className="size-5 text-base-content"
           >
             <path
               strokeLinecap="round"
@@ -53,7 +57,7 @@ export const NewSongButton = ({ id }: { id: string }) => {
           <input onChange={(e) => setSongUrl(e.target.value)} placeholder="Song url" className="input w-70  input-sm "></input>
           <button
             onClick={handleCreateSong}
-            className="btn bg-gradient-to-r from-primary to-secondary text-white btn-sm border-none shadow-[_0px_1px_25px] shadow-base-300 hover:shadow-secondary "
+            className="btn bg-gradient-to-r from-primary to-secondary text-white btn-sm border-2 hover:border-2  hover:border-secondary shadow-[_0px_1px_25px] shadow-base-300 hover:shadow-secondary "
           >
             {creatingSong ? <span className="loading loading-spinner size-3 " /> : "Add"}
           </button>

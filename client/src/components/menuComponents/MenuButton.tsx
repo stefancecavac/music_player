@@ -1,10 +1,10 @@
-import { useGetAllPlaylists } from "../api/playlistApi";
-import { NewSongButton } from "./NewSongButton";
+import { useGetAllPlaylists } from "../../api/playlistApi";
 import { useAtom } from "jotai";
-import { playlistAtom } from "../atoms/PlaylistAtom";
-import { SongCard } from "./SongCard";
-import { PlaylistCard } from "./PlaylistCard";
-import { NewPlaylistButton } from "./newPlaylistButton";
+import { playlistAtom } from "../../atoms/PlaylistAtom";
+import { NewPlaylistButton } from "./playlistComponents/newPlaylistButton";
+import { NewSongButton } from "./songComponents/NewSongButton";
+import { PlaylistCard } from "./playlistComponents/PlaylistCard";
+import { SongCard } from "./songComponents/SongCard";
 
 export const MenuButton = () => {
   const { playlists } = useGetAllPlaylists();

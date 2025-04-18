@@ -1,7 +1,7 @@
-import { PlaylistData } from "../types";
 import { useSetAtom } from "jotai";
-import { playlistAtom } from "../atoms/PlaylistAtom";
-import { useGetSinglePlaylist } from "../api/playlistApi";
+import { playlistAtom } from "../../../atoms/PlaylistAtom";
+import { PlaylistData } from "../../../types";
+import { useGetSinglePlaylist } from "../../../api/playlistApi";
 
 export const PlaylistCard = ({ playlist }: { playlist: PlaylistData }) => {
   const setPLaylist = useSetAtom(playlistAtom);
@@ -22,7 +22,7 @@ export const PlaylistCard = ({ playlist }: { playlist: PlaylistData }) => {
       onClick={hanldePlaylistClick}
       className={`${
         loading && "animate-pulse"
-      } hover:cursor-pointer group/items   bg-gradient-to-tl from-base-100/10 to-base-200/90  backdrop-blur-xl flex items-center gap-5 h-15 relative list-row rounded-none p-0`}
+      } hover:cursor-pointer group/items slide-in-left  bg-primary/20 transition-all hover:bg-primary/50  backdrop-blur-xl flex items-center gap-5 h-15 relative list-row rounded-none p-0`}
     >
       <div className=" h-full w-12 flex items-center justify-center bg-gradient-to-r from-primary to-secondary">
         <svg
@@ -42,7 +42,7 @@ export const PlaylistCard = ({ playlist }: { playlist: PlaylistData }) => {
           <path d="M12 18H3" />
         </svg>
       </div>
-      <p className="text-base-content truncate w-50 ">{playlist.name}</p>
+      <p className="text-base-content truncate w-50 font-medium font-stretch-extra-expanded ">{playlist.name}</p>
     </div>
   );
 };

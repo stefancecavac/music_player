@@ -2,7 +2,6 @@ import { eq } from "drizzle-orm";
 import { db } from "../db";
 import { CreateSongData, DeleteSongData, songTable } from "../db/schema/song";
 import AppError from "../middleware/errorHadler";
-import { playlistSongsTable } from "../db/schema/playlistSongs";
 
 export const getAllSongsService = async () => {
   try {
@@ -14,8 +13,7 @@ export const getAllSongsService = async () => {
 };
 export const createSongService = async ({ title, lenght, songHref, playlistId, thumbnailUrl }: CreateSongData) => {
   try {
-    const createdSong = await db.insert(songTable).values({ title, lenght, songHref, thumbnailUrl }).returning();
-    await db.insert(playlistSongsTable).values({ playlistId: playlistId, songId: createdSong[0].id });
+    const createdSong = await db.insert(songTable).values({ title, lenght, songHref, thumbnailUrl, playlistId }).returning();
 
     return createdSong[0];
   } catch (error) {

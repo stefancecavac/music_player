@@ -1,9 +1,9 @@
 import { useRef, useState } from "react";
 import ReactPlayer from "react-player/youtube";
-import { formatTime } from "../util/FormatTime";
-import { SongData } from "../types";
+import { SongData } from "../../types";
+import { currentSongAtom, currentSongPlayingAtom } from "../../atoms/SongAtom";
 import { useAtomValue } from "jotai";
-import { currentSongAtom, currentSongPlayingAtom } from "../atoms/SongAtom";
+import { formatTime } from "../../util/FormatTime";
 
 type PlayerAndProgressBarProps = {
   songs: SongData[];
@@ -61,7 +61,7 @@ export const PlayerAndProgressbar = ({ audioPlaying, isLooping, volume, songs }:
       <div className="flex flex-col gap-2 w-full items-center">
         {currentSongPlaying ? (
           <div className="flex items-center gap-5 mb-5">
-            <img src={currentSongPlaying?.thumbnailUrl} className="size-20 rounded-lg shadow-lg "></img>
+            <img src={songs[currentSong]?.thumbnailUrl} className="size-20 rounded-lg shadow-lg "></img>
             <h2 className="text-xl font-medium text-base-content mx-auto ">{songs[currentSong]?.title}</h2>
           </div>
         ) : (

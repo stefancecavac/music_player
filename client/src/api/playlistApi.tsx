@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { CreatePlaylistData, PlaylistData } from "../types";
+import { CreatePlaylistData, DeletePlaylistData, PlaylistData, UpdatePlaylistData } from "../types";
 import { axiosInstance } from "../config/ApiClient";
 
 export const useGetAllPlaylists = () => {
@@ -49,4 +49,48 @@ export const useCreatePlaylist = () => {
   });
 
   return { createPlaylist };
+};
+
+export const useUpdatePlaylist = () => {
+  const queryClient = useQueryClient();
+
+  const updatePlaylistApi = async ({ name, id }: UpdatePlaylistData) => {
+    const response = await axiosInstance.put(`/playlists/`, { name, id });
+
+    return response.data;
+  };
+
+  const { mutate: updatePlaylist } = useMutation({
+    mutationKey: ["playlist"],
+    mutationFn: updatePlaylistApi,
+    onSuccess: (data: PlaylistData) => {
+      queryClient.setQueryData(["playlists"], (oldData: PlaylistData[]) => {
+        return oldData.map((playlist) => (playlist.id === data.id ? data : playlist));
+      });
+    },
+  });
+
+  return { updatePlaylist };
+};
+
+export const useDeletePlaylist = () => {
+  const queryClient = useQueryClient();
+
+  const deletePlaylistApi = async ({ id, userId }: DeletePlaylistData) => {
+    const response = await axiosInstance.delete(`/playlists/`, { data: { userId, id } });
+
+    return response.data;
+  };
+
+  const { mutate: deletePlaylist } = useMutation({
+    mutationKey: ["playlist"],
+    mutationFn: deletePlaylistApi,
+    onSuccess: (data: PlaylistData) => {
+      queryClient.setQueryData(["playlists"], (oldData: PlaylistData[]) => {
+        return oldData.filter((oData) => oData.id !== data.id);
+      });
+    },
+  });
+
+  return { deletePlaylist };
 };

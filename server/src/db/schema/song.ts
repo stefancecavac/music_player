@@ -1,5 +1,6 @@
 import { numeric, pgTable, uuid, varchar } from "drizzle-orm/pg-core";
 import { z } from "zod";
+import { playlistTable } from "./playlist";
 
 export const songTable = pgTable("songs", {
   id: uuid("id").defaultRandom().primaryKey().notNull(),
@@ -7,6 +8,7 @@ export const songTable = pgTable("songs", {
   songHref: varchar("link").notNull(),
   lenght: numeric("lenght").notNull(),
   thumbnailUrl: varchar("thumbnail_url").notNull(),
+  playlistId: uuid("playlistId").references(() => playlistTable.id, { onDelete: "cascade" }),
 });
 
 export const songSchema = z.object({

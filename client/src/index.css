@@ -9,17 +9,18 @@
 @plugin "daisyui/theme" {
   name: "light";
   default: true;
-  --color-base-100: #ffffff;
-  --color-base-200: oklch(0.97 0.001 106.424);
-  --color-base-300: oklch(0.923 0.003 48.717); /* Slightly darker for elements */
-  --color-base-content: oklch(26.9% 0 0);
+  --color-base-100: #f3e5f5;
+  --color-base-200: #e1bee7;
+  --color-base-300: #ffffff;
+  --color-base-content: #4a148c;
 
-  --color-primary: oklch(71.4% 0.203 305.504);
+  --color-primary: #9c27b0;
+  --color-primary-content: #ffffff;
 
-  --color-neutral: oklch(71.4% 0.203 305.504);
-  --color-neutral-content: oklch(71.4% 0.203 305.504);
+  --color-neutral: #f8bbd0;
+  --color-neutral-content: #880e4f;
 
-  --color-secondary: oklch(82.3% 0.12 346.018);
+  --color-secondary: #f8a4c4;
 
   --depth: 0;
 }
@@ -29,7 +30,7 @@
   --color-base-100: #000000;
   --color-base-200: oklch(21% 0.006 285.885);
   --color-base-300: #2c2c2c;
-  --color-base-content: oklch(95% 0.005 270);
+  --color-base-content: oklch(95% 0.05 210);
 
   --color-primary: #301350;
   --color-primary-content: #301350;
@@ -85,4 +86,33 @@ input[type="range"]::-ms-thumb {
 
   cursor: pointer;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.slide-in-left {
+  -webkit-animation: slide-in-left 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: slide-in-left 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+@-webkit-keyframes slide-in-left {
+  0% {
+    -webkit-transform: translateX(-1000px);
+    transform: translateX(-1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes slide-in-left {
+  0% {
+    -webkit-transform: translateX(-1000px);
+    transform: translateX(-1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+    opacity: 1;
+  }
 }

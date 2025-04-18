@@ -2,10 +2,10 @@ import { useState } from "react";
 import { AudioSlider } from "./AudioSlider";
 import { MainControllButtons } from "./MainControllButtons";
 import { RepeatButton } from "./RepeatButton";
-import { ShuffleButton } from "./ShuffleButton";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import { currentSongAtom, isPlayingAtom, songsAtom } from "../atoms/SongAtom";
+import { currentSongAtom, isPlayingAtom, songsAtom } from "../../atoms/SongAtom";
 import { PlayerAndProgressbar } from "./PlayerAndProgressBar";
+import { ShuffleButton } from "./ShuffleButton";
 
 export const MusicPlayer = () => {
   const songs = useAtomValue(songsAtom);
@@ -16,6 +16,7 @@ export const MusicPlayer = () => {
 
   const setCurrentSong = useSetAtom(currentSongAtom);
   const [audioPlaying, setAudioPlaying] = useAtom(isPlayingAtom);
+  console.log("audio playing", audioPlaying);
 
   return (
     <div className="rounded-lg  w-full max-w-md p-6 bg-gradient-to-tl from-base-100/80 to-base-200/70  backdrop-blur-xl shadow-2xl flex flex-col items-center gap-2 mt-30 ">

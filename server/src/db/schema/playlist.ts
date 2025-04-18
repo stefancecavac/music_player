@@ -21,7 +21,24 @@ export const createPlaylistSchema = z.object({
     .string({ message: "name field is required" })
     .min(1, { message: "name is required" })
     .max(255, { message: "Maximum 255 characters allowed" }),
-  userId: z.string().uuid(),
+  userId: z.string({ message: "userId field is required" }).uuid({ message: "Not a valid uuid" }),
 });
 
 export type CreatePlaylistData = z.infer<typeof createPlaylistSchema>;
+
+export const deletePlaylistsSchema = z.object({
+  id: z.string({ message: "Id field is required" }).uuid({ message: "Not a valid uuid" }),
+  userId: z.string({ message: "userId field is required" }).uuid({ message: "Not a valid uuid" }),
+});
+
+export type DeletePlaylistData = z.infer<typeof deletePlaylistsSchema>;
+
+export const updatePlaylistSchema = z.object({
+  id: z.string({ message: "Id field is required" }).uuid({ message: "Not a valid uuid" }),
+  name: z
+    .string({ message: "name field is required" })
+    .min(1, { message: "name is required" })
+    .max(255, { message: "Maximum 255 characters allowed" }),
+});
+
+export type UpdatePlaylistData = z.infer<typeof updatePlaylistSchema>;
