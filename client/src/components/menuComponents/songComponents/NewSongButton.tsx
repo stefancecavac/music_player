@@ -1,13 +1,22 @@
 import { useState } from "react";
 import { useCreateSong, useGetSongInformation } from "../../../api/songsApi";
+import { createSongSchema } from "../../../types";
 
 export const NewSongButton = ({ id }: { id: string }) => {
   const { getSongInformation } = useGetSongInformation();
-  const { createSong, creatingSong } = useCreateSong(id);
+  const { createSong, creatingSong } = useCreateSong();
+  const [error, setError] = useState<string | undefined>("");
 
   const [songUrl, setSongUrl] = useState("");
 
   const handleCreateSong = async () => {
+    const urlResult = createSongSchema.safeParse({
+      songHref: songUrl,
+    });
+
+    if (urlResult.error) {
+      setError(urlResult.error.format().songHref?._errors[0]);
+    }
     const songInfo = await getSongInformation(songUrl);
     createSong({ title: songInfo.title, songHref: songUrl, lenght: 1, playlistId: id, thumbnailUrl: songInfo.thumbnail_url });
   };
@@ -57,11 +66,12 @@ export const NewSongButton = ({ id }: { id: string }) => {
           <input onChange={(e) => setSongUrl(e.target.value)} placeholder="Song url" className="input w-70  input-sm "></input>
           <button
             onClick={handleCreateSong}
-            className="btn bg-gradient-to-r from-primary to-secondary text-white btn-sm border-2 hover:border-2  hover:border-secondary shadow-[_0px_1px_25px] shadow-base-300 hover:shadow-secondary "
+            className="btn bg-gradient-to-r w-15 from-primary to-secondary text-white btn-sm border-2 hover:border-2  hover:border-secondary shadow-[_0px_1px_25px] shadow-base-300 hover:shadow-secondary "
           >
             {creatingSong ? <span className="loading loading-spinner size-3 " /> : "Add"}
           </button>
         </div>
+        <p className="text-xs p-1 text-red-400 font-medium ">{error}</p>
       </div>
     </div>
   );

@@ -25,7 +25,7 @@ export const LandingPage = () => {
               d="m9 9 10.5-3m0 6.553v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 1 1-.99-3.467l2.31-.66a2.25 2.25 0 0 0 1.632-2.163Zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 0 1-.99-3.467l2.31-.66A2.25 2.25 0 0 0 9 15.553Z"
             />
           </svg>
-          <h1 className="text-2xl font-bold text-white"> SoundWave</h1>
+          <h1 className="text-2xl font-bold text-white"> PlayTube</h1>
         </div>
 
         <div className="flex flex-col gap-4 items-center justify-center mt-10 text-center">
@@ -33,7 +33,7 @@ export const LandingPage = () => {
             Discover Your Sound.
           </h2>
           <p className="text-purple-100/90 break-words w-full max-w-sm text-center leading-relaxed">
-            SoundWave brings you a new way to discover, stream, and share music. Join our waitlist for early access.
+            PlayTube brings you a new way to discover, stream, and share music. Join Us!
           </p>
         </div>
 

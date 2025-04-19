@@ -1,9 +1,9 @@
 import { useAtom } from "jotai";
 import { changeThemeAtom } from "../atoms/ThemeAtom";
+import { useLayoutEffect } from "react";
 
 export const ThemeChangerComponent = () => {
   const [theme, setTheme] = useAtom(changeThemeAtom);
-  console.log(theme);
 
   const hanldeChangeTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
@@ -12,7 +12,10 @@ export const ThemeChangerComponent = () => {
     setTheme(newTheme);
   };
 
-  document.documentElement.setAttribute("data-theme", theme!);
+  useLayoutEffect(() => {
+    localStorage.setItem("theme", JSON.stringify("light"));
+    document.documentElement.setAttribute("data-theme", theme! || "light");
+  }, [theme]);
 
   return (
     <label className="swap swap-rotate btn btn-square btn-sm  fill-base-content/70">

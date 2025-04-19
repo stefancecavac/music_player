@@ -20,11 +20,11 @@ export const MenuButton = () => {
           </svg>
         </label>
       </div>
-      <div className="drawer-side z-50">
+      <div className="drawer-side z-50 h-screen">
         <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
-        <div className=" bg-gradient-to-r border-r  border-base-300  from-base-100/50 to-base-200/90 backdrop-blur-lg text-base-content min-h-full w-100 pl-1  ">
-          <div className="flex items-center justify-between border-b-2 p-3 pb-3 border-base-content/10">
-            <div className="flex gap-5 items-center h-10 ">
+        <div className="bg-gradient-to-r border-r border-base-300 from-base-100/50 to-base-200/90 backdrop-blur-lg text-base-content w-100  h-full flex flex-col">
+          <div className="z-10 w-full flex items-center justify-between border-b-2 p-3 border-base-content/10 fixed top-0 left-0 bg-inherit backdrop-blur-lg">
+            <div className="flex gap-5 items-center h-10">
               {playlist ? (
                 <button onClick={() => setPLaylist(undefined)} className="btn btn-square btn-sm bg-transparent border-none">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
@@ -47,24 +47,25 @@ export const MenuButton = () => {
                   />
                 </svg>
               )}
-
-              <p className="text-lg font-bold text-base-content">{playlist?.name ? playlist?.name : "Your playlists"}</p>
+              <p className="text-lg font-bold text-base-content">{playlist?.name ? playlist.name : "Your playlists"}</p>
             </div>
             {!playlist?.id && <NewPlaylistButton playlists={playlists} />}
             {playlist?.id && <NewSongButton id={playlist.id} />}
           </div>
 
-          {playlists?.length === 0 ? (
-            <div className="mt-5 mx-5">
-              <p className="text-base-content/50 text-sm">You have no playlists press create playlist button to add new playlist</p>
-            </div>
-          ) : (
-            <ul className="list bg-base-100  shadow-md  ">
-              {playlist
-                ? playlist?.songs?.map((song, index) => <SongCard index={index} song={song} key={song.id} />)
-                : playlists?.map((playlist) => <PlaylistCard playlist={playlist} key={playlist.id} />)}
-            </ul>
-          )}
+          <div className="mt-18 overflow-y-auto  h-full">
+            {playlists?.length === 0 ? (
+              <div className="mt-5 mx-5">
+                <p className="text-base-content/50 text-sm">You have no playlists. Press create playlist button to add one.</p>
+              </div>
+            ) : (
+              <ul className="list bg-base-100 shadow-md">
+                {playlist
+                  ? playlist?.songs?.map((song, index) => <SongCard index={index} song={song} key={song.id} />)
+                  : playlists?.map((playlist) => <PlaylistCard playlist={playlist} key={playlist.id} />)}
+              </ul>
+            )}
+          </div>
         </div>
       </div>
     </div>

@@ -63,8 +63,6 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
     },
   });
 
-  console.log(user);
-
   useLayoutEffect(() => {
     const authInterceptor = axiosInstance.interceptors.request.use((config: CustomAxiosRequestConfig) => {
       config.headers.Authorization = accessToken && !config._retry ? `Bearer ${accessToken}` : config.headers.Authorization;

@@ -29,7 +29,10 @@ export const createSongSchema = z.object({
     .string({ message: "Title field is required" })
     .min(1, { message: "title is required" })
     .max(255, { message: "Maximum 255 characters allowed" }),
-  songHref: z.string({ message: "SongHref field is required" }),
+  songHref: z
+    .string()
+    .url()
+    .regex(/^https?:\/\/(www\.)?youtube\.com\/watch\?v=[\w-]{11}(&.*)?$/, "Must be a valid YouTube watch URL"),
   lenght: z.number({ message: "lenght field is required" }),
   thumbnailUrl: z.string({ message: "Thumbnail required" }),
   playlistId: z.string().uuid(),

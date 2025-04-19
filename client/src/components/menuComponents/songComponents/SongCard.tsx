@@ -28,20 +28,18 @@ export const SongCard = ({ song, index }: { song: SongData; index: number }) => 
       <p className="text-base-content truncate w-50 font-medium font-stretch-extra-expanded">{song.title}</p>
 
       {audioPlaying && currentSongPlaying?.id === song.id && (
-        <div className="p-1 rounded-lg bg-gradient-to-r from-primary/50 to-secondary/50  group-hover/items:bg-base-300/50  backdrop-blur-xl absolute right-3">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="size-5 text-white"
-          >
-            <polygon points="6 3 20 12 6 21 6 3" />
-          </svg>
-        </div>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="3"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="size-5 text-secondary absolute right-5 "
+        >
+          <polygon points="6 3 20 12 6 21 6 3" />
+        </svg>
       )}
     </div>
   );

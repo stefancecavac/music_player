@@ -1,13 +1,15 @@
-import { SongData } from "../../types";
+import { useAtomValue } from "jotai";
+import { playlistAtom } from "../../atoms/PlaylistAtom";
 
 type MainControllButtonsProps = {
   setCurrentSong: (value: (prev: number) => number) => void;
   setAudioPlaying: (value: boolean | ((prev: boolean) => boolean)) => void;
   audioPlaying: boolean;
-  songs: SongData[];
 };
 
-export const MainControllButtons = ({ setCurrentSong, setAudioPlaying, audioPlaying, songs }: MainControllButtonsProps) => {
+export const MainControllButtons = ({ setCurrentSong, setAudioPlaying, audioPlaying }: MainControllButtonsProps) => {
+  const playlistData = useAtomValue(playlistAtom);
+
   return (
     <div className="flex items-center gap-5">
       <button
@@ -67,7 +69,7 @@ export const MainControllButtons = ({ setCurrentSong, setAudioPlaying, audioPlay
 
       <button
         className="text-base-content/50 hover:text-base-content hover:cursor-pointer"
-        onClick={() => setCurrentSong((prev) => (prev === songs.length - 1 ? prev : prev + 1))}
+        onClick={() => setCurrentSong((prev) => (prev === (playlistData?.songs.length ?? 0) - 1 ? prev : prev + 1))}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

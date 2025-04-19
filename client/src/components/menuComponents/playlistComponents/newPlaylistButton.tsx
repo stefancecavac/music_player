@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useCreatePlaylist, useDeletePlaylist, useUpdatePlaylist } from "../../../api/playlistApi";
 import { UseAuthContext } from "../../../context/AuthContext";
-import { PlaylistData } from "../../../types";
+import { PlaylistData, playlistSchema } from "../../../types";
 
 export const NewPlaylistButton = ({ playlists }: { playlists?: PlaylistData[] }) => {
   const { createPlaylist } = useCreatePlaylist();
@@ -16,6 +16,7 @@ export const NewPlaylistButton = ({ playlists }: { playlists?: PlaylistData[] })
   const [editableId, setEditableId] = useState("");
 
   const [creatingPlaylist, setCreatingPlaylist] = useState(false);
+  const [error, setError] = useState<string | undefined>("");
 
   useEffect(() => {
     if (editableId && editRefs.current[editableId]) {
@@ -35,6 +36,11 @@ export const NewPlaylistButton = ({ playlists }: { playlists?: PlaylistData[] })
   };
 
   const handleCreatePlaylist = () => {
+    const result = playlistSchema.safeParse({ name: playlistName });
+
+    if (result.error) {
+      setError(result.error.format().name?._errors[0]);
+    }
     createPlaylist({ name: playlistName, userId: user!.id });
   };
   if (!user) return null;
@@ -68,7 +74,7 @@ export const NewPlaylistButton = ({ playlists }: { playlists?: PlaylistData[] })
         className="dropdown-content w-70  bg-gradient-to-tl from-base-100/60 to-base-200 backdrop-blur-lg rounded-box z-1 p-2 shadow-lg flex  flex-col  "
       >
         <p className="text-base-content/50 text-xs  p-2">Your playlists</p>
-        <div className="flex-col items-center gap-5 my-1">
+        <div className="flex-col items-center gap-5 my-1 overflow-auto max-h-100">
           {playlists?.map((playlist) => (
             <div
               key={playlist.id}
@@ -134,20 +140,23 @@ export const NewPlaylistButton = ({ playlists }: { playlists?: PlaylistData[] })
         <div className="divider m-0 my-1"></div>
 
         {creatingPlaylist ? (
-          <div className="flex items-center gap-2 p-2">
-            <input
-              onChange={(e) => setPlaylistName(e.target.value)}
-              placeholder="Enter playlist title "
-              className="input focus-within:outline-none   input-sm "
-            ></input>
-            <button
-              onClick={handleCreatePlaylist}
-              className="btn bg-gradient-to-r  border-0 hover:border-2  hover:border-secondary from-primary to-secondary text-white btn-sm btn-square shadow-[_0px_1px_25px] shadow-base-300 hover:shadow-secondary"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
-                <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-              </svg>
-            </button>
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center gap-2 p-2">
+              <input
+                onChange={(e) => setPlaylistName(e.target.value)}
+                placeholder="Enter playlist title "
+                className="input focus-within:outline-none   input-sm "
+              ></input>
+              <button
+                onClick={handleCreatePlaylist}
+                className="btn bg-gradient-to-r  border-0 hover:border-2  hover:border-secondary from-primary to-secondary text-white btn-sm btn-square shadow-[_0px_1px_25px] shadow-base-300 hover:shadow-secondary"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                </svg>
+              </button>
+            </div>
+            <p className="text-xs text-red-400 font-medium p-1">{error}</p>
           </div>
         ) : (
           <button

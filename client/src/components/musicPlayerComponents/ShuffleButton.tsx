@@ -1,11 +1,8 @@
-import { useAtomValue, useSetAtom } from "jotai";
+import { useSetAtom } from "jotai";
 import { currentSongAtom } from "../../atoms/SongAtom";
 
 export const ShuffleButton = ({ songCount }: { songCount: number }) => {
   const setCurrentSong = useSetAtom(currentSongAtom);
-  const currentSong = useAtomValue(currentSongAtom);
-
-  console.log(currentSong);
 
   const handleShuffle = () => {
     const randomNumber = Math.floor(Math.random() * songCount);

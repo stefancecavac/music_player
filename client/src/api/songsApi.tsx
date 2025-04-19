@@ -2,8 +2,9 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { CreateSongData, SongData } from "../types";
 import { axiosInstance } from "../config/ApiClient";
 import axios from "axios";
-import { useSetAtom } from "jotai";
+import { useAtom, useSetAtom } from "jotai";
 import { playlistAtom } from "../atoms/PlaylistAtom";
+import { songsAtom } from "../atoms/SongAtom";
 
 export const useGetAllSongs = () => {
   const getAllSongsApi = async () => {
@@ -23,22 +24,22 @@ export const useGetAllSongs = () => {
 export const useGetSongInformation = () => {
   const getSongInformationApi = async (url: string) => {
     const response = await axios.get(`https://noembed.com/embed?url=${url}`);
-    console.log(response.data);
 
     return response.data as { title: string; thumbnail_url: string };
   };
 
-  const { mutateAsync: getSongInformation } = useMutation({
+  const { mutateAsync: getSongInformation, error: songInformationError } = useMutation({
     mutationKey: ["songInformation"],
     mutationFn: getSongInformationApi,
   });
 
-  return { getSongInformation };
+  return { getSongInformation, songInformationError };
 };
 
-export const useCreateSong = (id: string) => {
-  const setPlaylist = useSetAtom(playlistAtom);
-  console.log("id", id);
+export const useCreateSong = () => {
+  const [playlist, setPlaylist] = useAtom(playlistAtom);
+  const setSongs = useSetAtom(songsAtom);
+
   const postSongApi = async ({ lenght, songHref, title, playlistId, thumbnailUrl }: CreateSongData) => {
     const response = await axiosInstance.post(`/songs/`, { lenght, songHref, title, playlistId, thumbnailUrl });
 
@@ -58,6 +59,8 @@ export const useCreateSong = (id: string) => {
           songs: [...prev.songs, data],
         };
       });
+      setSongs((prev) => [...prev, data]);
+      setSongs(playlist?.songs || []);
     },
   });
 
