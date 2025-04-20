@@ -1,6 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { CreatePlaylistData, DeletePlaylistData, PlaylistData, UpdatePlaylistData } from "../types";
 import { axiosInstance } from "../config/ApiClient";
+import { useSetAtom } from "jotai";
+import { ToastAtom } from "../atoms/ToastAtom";
 
 export const useGetAllPlaylists = () => {
   const getAllPlaylistsApi = async () => {
@@ -31,6 +33,7 @@ export const useGetSinglePlaylist = (id: string, enabled = true) => {
 
 export const useCreatePlaylist = () => {
   const queryClient = useQueryClient();
+  const setToast = useSetAtom(ToastAtom);
 
   const createPlaylistApi = async ({ name, userId }: CreatePlaylistData) => {
     const response = await axiosInstance.post(`/playlists/`, { name, userId });
@@ -44,6 +47,12 @@ export const useCreatePlaylist = () => {
     onSuccess: (data: PlaylistData) => {
       queryClient.setQueryData(["playlists"], (oldData: PlaylistData[]) => {
         return [...oldData, data];
+      });
+
+      setToast({
+        message: "Successfuly Created playlist!",
+        type: "success",
+        open: true,
       });
     },
   });
@@ -75,6 +84,7 @@ export const useUpdatePlaylist = () => {
 
 export const useDeletePlaylist = () => {
   const queryClient = useQueryClient();
+  const setToast = useSetAtom(ToastAtom);
 
   const deletePlaylistApi = async ({ id, userId }: DeletePlaylistData) => {
     const response = await axiosInstance.delete(`/playlists/`, { data: { userId, id } });
@@ -88,6 +98,11 @@ export const useDeletePlaylist = () => {
     onSuccess: (data: PlaylistData) => {
       queryClient.setQueryData(["playlists"], (oldData: PlaylistData[]) => {
         return oldData.filter((oData) => oData.id !== data.id);
+      });
+      setToast({
+        message: "Successfuly Deleted Playlist!",
+        type: "success",
+        open: true,
       });
     },
   });

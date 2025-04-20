@@ -1,14 +1,18 @@
 import { useGetAllPlaylists } from "../../api/playlistApi";
-import { useAtom } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import { playlistAtom } from "../../atoms/PlaylistAtom";
 import { NewPlaylistButton } from "./playlistComponents/newPlaylistButton";
 import { NewSongButton } from "./songComponents/NewSongButton";
 import { PlaylistCard } from "./playlistComponents/PlaylistCard";
 import { SongCard } from "./songComponents/SongCard";
+import { movingSongAtom } from "../../atoms/SongAtom";
 
 export const MenuButton = () => {
   const { playlists } = useGetAllPlaylists();
   const [playlist, setPLaylist] = useAtom(playlistAtom);
+  const isMovingSong = useAtomValue(movingSongAtom);
+
+  console.log(isMovingSong);
 
   return (
     <div className="drawer">
@@ -47,7 +51,9 @@ export const MenuButton = () => {
                   />
                 </svg>
               )}
-              <p className="text-lg font-bold text-base-content">{playlist?.name ? playlist.name : "Your playlists"}</p>
+              <p className="text-lg font-bold text-base-content">
+                {playlist?.name ? playlist.name : isMovingSong ? "Choose where to move " : "Your playlists"}
+              </p>
             </div>
             {!playlist?.id && <NewPlaylistButton playlists={playlists} />}
             {playlist?.id && <NewSongButton id={playlist.id} />}

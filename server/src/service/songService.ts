@@ -20,6 +20,15 @@ export const createSongService = async ({ title, lenght, songHref, playlistId, t
     throw new AppError("Database error", 500);
   }
 };
+export const moveSongService = async ({ id, playlistId }: { id: string; playlistId: string }) => {
+  try {
+    const movedSong = await db.update(songTable).set({ playlistId: playlistId }).where(eq(songTable.id, id)).returning();
+
+    return movedSong[0];
+  } catch (error) {
+    throw new AppError("Database error", 500);
+  }
+};
 export const deleteSongService = async ({ id }: DeleteSongData) => {
   try {
     const deletedSong = await db.delete(songTable).where(eq(songTable.id, id)).returning();

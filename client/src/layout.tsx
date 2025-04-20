@@ -2,6 +2,7 @@ import React from "react";
 import { MenuButton } from "./components/menuComponents/MenuButton";
 import { ThemeChangerComponent } from "./components/ThemeChangerComponent";
 import { UseAuthContext } from "./context/AuthContext";
+import { ToastComponent } from "./components/ToastComponent";
 
 export const Layout = ({ children }: { children: React.ReactNode }) => {
   const { user, logout } = UseAuthContext();
@@ -25,6 +26,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
         )}
       </div>
       <div className=" flex h-full items-center justify-center ">{children}</div>
+      <ToastComponent />
     </div>
   );
 };
