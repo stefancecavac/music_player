@@ -9,7 +9,7 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "build": "tsc",
-    "start": "/dist/index.js"
+    "start": "node ./dist/index.js"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +21,7 @@
     "drizzle-orm": "^0.41.0",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
+    "music_player": "file:..",
     "nodemailer": "^6.10.1",
     "pg": "^8.14.1",
     "server": "file:",
