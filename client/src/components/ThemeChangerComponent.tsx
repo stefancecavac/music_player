@@ -13,9 +13,11 @@ export const ThemeChangerComponent = () => {
   };
 
   useLayoutEffect(() => {
-    localStorage.setItem("theme", JSON.stringify("light"));
-    document.documentElement.setAttribute("data-theme", theme! || "light");
-  }, [theme]);
+    const savedTheme = JSON.parse(localStorage.getItem("theme") || "null");
+    const appliedTheme = savedTheme || theme || "light";
+    document.documentElement.setAttribute("data-theme", appliedTheme);
+    setTheme(appliedTheme);
+  }, []);
 
   return (
     <label className="swap swap-rotate btn btn-square btn-sm  fill-base-content/70">
