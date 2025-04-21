@@ -12,7 +12,10 @@ export const MenuButton = () => {
   const [playlist, setPLaylist] = useAtom(playlistAtom);
   const isMovingSong = useAtomValue(movingSongAtom);
 
-  console.log(isMovingSong);
+  const closeDrawer = () => {
+    const drawerCheckbox = document.getElementById("my-drawer") as HTMLInputElement;
+    if (drawerCheckbox) drawerCheckbox.checked = false;
+  };
 
   return (
     <div className="drawer">
@@ -37,6 +40,7 @@ export const MenuButton = () => {
                 </button>
               ) : (
                 <svg
+                  onClick={() => closeDrawer()}
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"

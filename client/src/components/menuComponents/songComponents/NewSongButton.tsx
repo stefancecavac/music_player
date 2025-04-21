@@ -22,7 +22,7 @@ export const NewSongButton = ({ id }: { id: string }) => {
   };
 
   return (
-    <div className="dropdown dropdown-center">
+    <div className="dropdown dropdown-end ">
       <div
         tabIndex={0}
         role="button"
@@ -59,7 +59,7 @@ export const NewSongButton = ({ id }: { id: string }) => {
       </div>
       <div
         tabIndex={0}
-        className="dropdown-content  bg-gradient-to-tl from-base-100/60 to-base-200 backdrop-blur-lg rounded-box z-1 p-2 shadow-lg flex  flex-col  "
+        className="dropdown-content  -right-3   bg-gradient-to-tl from-base-100/60 to-base-200 backdrop-blur-lg rounded-box z-1 p-2 shadow-lg flex  flex-col  "
       >
         <p className="text-base-content/50 text-sm  p-2">Add a Song to playlist</p>
         <div className="flex items-center gap-5 p-2">
