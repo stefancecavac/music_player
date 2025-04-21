@@ -12,7 +12,7 @@ const transporter = nodemailer.createTransport({
 export const sendMagicLinkEmail = async (email: string) => {
   try {
     const token = jwt.sign({ email }, process.env.MAGIC_LINK_SECRET as string, { expiresIn: "15m" });
-    const magicLink = `${process.env.FRONTEND_URL}/magic-login?token=${token}`;
+    const magicLink = `https://music-player-0a4f.onrender.com/magic-login?token=${token}`;
 
     await transporter.sendMail({
       from: process.env.GMAIL_USER,
